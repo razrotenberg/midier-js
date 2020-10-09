@@ -2,12 +2,12 @@
 
 set -e
 
-if [ ! -d /Midier ]; then
+if [ ! -d /midier-core ]; then
     echo "Cloning Midier repository"
-    git clone https://github.com/levosos/Midier.git /Midier
+    git clone https://github.com/levosos/midier-core.git /midier-core
 fi
 
-mkdir -p /MidierJS/dist
+mkdir -p /midier-js/dist
 
 echo "Building with Emscripten"
 emcc \
@@ -22,7 +22,7 @@ emcc \
     -s ALLOW_TABLE_GROWTH=1 \
     -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall","cwrap","addFunction","removeFunction"]' \
     -s FILESYSTEM=0 \
-    -I /Midier/src/ \
-    -o /MidierJS/dist/Midier.js \
-    --pre-js /MidierJS/src/js/pre.js \
-    /Midier/src/*/*.cpp /MidierJS/src/*/*.cpp
+    -I /midier-core/src/ \
+    -o /midier-js/dist/Midier.js \
+    --pre-js /midier-js/src/js/pre.js \
+    /midier-core/src/*/*.cpp /midier-js/src/*/*.cpp

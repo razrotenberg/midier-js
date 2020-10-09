@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run -it --rm -v $(pwd):/MidierJS -w /MidierJS "$@" emscripten/emsdk
+docker run -it --rm -v $(pwd):/midier-js -w /midier-js "$@" emscripten/emsdk
