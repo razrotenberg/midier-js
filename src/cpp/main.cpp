@@ -155,7 +155,7 @@ extern "C" EMSCRIPTEN_KEEPALIVE unsigned getBPM()
     return __bpm;
 }
 
-extern "C" EMSCRIPTEN_KEEPALIVE void setBPM(unsigned bpm)
+extern "C" EMSCRIPTEN_KEEPALIVE bool setBPM(unsigned bpm)
 {
     __bpm = bpm;
 
@@ -165,11 +165,7 @@ extern "C" EMSCRIPTEN_KEEPALIVE void setBPM(unsigned bpm)
 
     std::cout << "Setting BPM to " << bpm << " (" << std::setprecision(2) << mspc << " ms per click)" << std::endl;
 
-    if (emscripten_set_main_loop_timing(EM_TIMING_SETTIMEOUT, mspc) != 0)
-    {
-        std::cerr << "Could not set timing" << std::endl;
-        throw std::exception();
-    }
+    return emscripten_set_main_loop_timing(EM_TIMING_SETTIMEOUT, mspc) == 0;
 }
 
 extern "C" int main()

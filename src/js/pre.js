@@ -12,7 +12,13 @@ Module["onRuntimeInitialized"] = async _ => {
 
     // Global configuration
     Module["getBPM"] = Module.cwrap('getBPM', 'number', []);
-    Module["setBPM"] = Module.cwrap('setBPM', null, ['number']);
+    Module["__setBPM"] = Module.cwrap('setBPM', 'number', ['number']);
+    Module["setBPM"] = function(bpm) {
+        if (Module["__setBPM"](bpm) == 0)
+        {
+            throw new Error("Failed setting BPM");
+        }
+    };
 
     // Run, schedule and callbacks
     Module["__scheduleCallback"] = Module.cwrap('scheduleCallback', null, ['number', 'number']);
