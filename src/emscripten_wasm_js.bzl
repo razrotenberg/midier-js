@@ -1,9 +1,18 @@
-def emscripten_wasm_js(opts=[], prejs=None, linkopts=[], data=[], **kwargs):
-    linkopts = linkopts + ['-s %s' % opt for opt in opts]
+def emscripten_wasm_js(name, libs, opts=[], methods=None, prejs=None):
+    if methods:
+        opts = opts + ["EXTRA_EXPORTED_RUNTIME_METHODS=[%s]" % ",".join(["'%s'" % method for method in methods])]
 
-    if prejs != None:
-        linkopts = linkopts + ['--pre-js %s' % prejs]
+    components = ["emcc -o $@ "]
 
-    native.cc_binary(
-        linkopts = linkopts,
-        **kwargs)
+    if prejs:
+        components = components + ["--pre-js $(location %s)" % prejs]
+
+    components = components + ["-s %s" % opt for opt in opts]
+    components = components + ["$(location %s)" % lib for lib in libs]
+
+    native.genrule(
+        name = "_" + name,
+        srcs = [prejs] + libs,
+        outs = [name],
+        cmd = " ".join(components),
+    )
