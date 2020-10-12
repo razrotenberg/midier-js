@@ -6,6 +6,7 @@
     "build:dbg": "bazel build -c dbg //src:midier.js --config=wasm",
     "build:opt": "bazel build -c opt //src:midier.js --config=wasm",
     "dist": "mkdir -p $(pwd)/dist && cp -f $(pwd)/bazel-bin/src/midier.js $(pwd)/dist/midier.js",
+    "docker:build": "docker build -f $(pwd)/Dockerfile -t levosos/midier-js $(pwd)",
     "docker:run": "docker run -it --rm -v $(pwd):/midier-js -v $(pwd)/../midier-core:/midier-core -w /midier-js levosos/midier-js",
     "docker": "npm run docker:run"
   },
