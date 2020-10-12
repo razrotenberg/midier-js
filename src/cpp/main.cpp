@@ -51,18 +51,15 @@ struct Sequencer
  public:
     midier::Sequencer sequencer;
 
- private:
-    static std::vector<Sequencer *> _all;
-
- public:
-    static void enroll(Sequencer * sequencer)
+    static std::vector<Sequencer *> & all()
     {
-        _all.push_back(sequencer);
+        static std::vector<Sequencer *> __all;
+        return __all;
     }
 
-    static const std::vector<Sequencer *> & all()
+    static void enroll(Sequencer * sequencer)
     {
-        return _all;
+        all().push_back(sequencer);
     }
 };
 
@@ -120,9 +117,13 @@ struct Callback
 
     Function callback;
     unsigned subdivisions; // how many more subdivisions
-};
 
-std::vector<Callback> __callbacks;
+    static std::vector<Callback> & all()
+    {
+        static std::vector<Callback> __all;
+        return __all;
+    }
+};
 
 extern "C" EMSCRIPTEN_KEEPALIVE void scheduleCallback(Callback::Function callback, float bars)
 {
@@ -144,7 +145,7 @@ extern "C" EMSCRIPTEN_KEEPALIVE void scheduleCallback(Callback::Function callbac
     else
     {
         // std::cout << "Scheduling callback " << (void*)callback << " in " << bars << " bars (" << cb.subdivisions << " subdivisions)" << std::endl;
-        __callbacks.push_back(cb);
+        Callback::all().push_back(cb);
     }
 }
 
@@ -179,12 +180,12 @@ extern "C" int main()
 
             midier::Time::click();
 
-            for (auto it = __callbacks.begin(); it != __callbacks.end();)
+            for (auto it = Callback::all().begin(); it != Callback::all().end();)
             {
                 if (--it->subdivisions == 0)
                 {
                     it->callback();
-                    it = __callbacks.erase(it);
+                    it = Callback::all().erase(it);
                 }
                 else
                 {
