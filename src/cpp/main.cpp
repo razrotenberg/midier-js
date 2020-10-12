@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <iostream>
 
-#include <Midier.h>
+#include "midier/sequencer/sequencer.h"
 
 namespace midier
 {
