@@ -1,0 +1,33 @@
+{
+  "name": "midier-demo",
+  "version": "0.1.0",
+  "description": "Demo website for Midier.js",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "serve": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levosos/midier-js.git"
+  },
+  "keywords": [
+    "MIDI",
+    "arpeggio",
+    "arpeggiator",
+    "music",
+    "music creation"
+  ],
+  "author": "Raz Haleva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/levosos/midier-js/issues"
+  },
+  "homepage": "https://github.com/levosos/midier-js#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^4.5.1",
+    "webpack": "^5.16.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}

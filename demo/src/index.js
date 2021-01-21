@@ -1,4 +1,4 @@
-import createMidier from '../dist/Midier.js'
+import createMidier from '../../dist/Midier.js'
 
 async function main() {
     console.log("Initializing Midier");
@@ -39,7 +39,6 @@ async function main() {
     const midiAccess = await navigator.requestMIDIAccess();
     var id = null;
     midiAccess.outputs.forEach(output => {
-        // console.log(output);
         id = output.id;
     });
 

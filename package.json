@@ -8,8 +8,7 @@
     "dist": "mkdir -p $(pwd)/dist && cp -f $(pwd)/bazel-bin/src/midier.js $(pwd)/dist/midier.js",
     "docker:build": "docker build -f $(pwd)/Dockerfile -t levosos/midier-js $(pwd)",
     "docker:run": "docker run -it --rm -v $(pwd):/midier-js -v $(pwd)/../midier-core:/midier-core -w /midier-js levosos/midier-js",
-    "docker": "npm run docker:run",
-    "serve": "http-server"
+    "docker": "npm run docker:run"
   },
   "repository": {
     "type": "git",
@@ -27,8 +26,5 @@
   "bugs": {
     "url": "https://github.com/levosos/midier-js/issues"
   },
-  "homepage": "https://github.com/levosos/midier-js#readme",
-  "devDependencies": {
-    "http-server": "^0.12.3"
-  }
+  "homepage": "https://github.com/levosos/midier-js#readme"
 }
