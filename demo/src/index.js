@@ -1,6 +1,29 @@
 import createMidier from '../../dist/Midier.js'
+import {CodeJar} from 'codejar';
+import './style.css';
+import hljs from 'highlight.js/lib/core';
+
+// add JS support only
+hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'));
 
 async function main() {
+    console.log("Initializing editor");
+    const jar = CodeJar(document.querySelector('#editor'), (editor) => {
+        // highlight.js does not trims old tags,
+        // let's do it by this hack.
+        editor.textContent = editor.textContent;
+        hljs.highlightBlock(editor);
+    });
+
+    jar.updateCode(
+`// for every scale degree
+for (const index of Array(8).keys()){
+    const degree = index + 1
+
+    // play the scale degree for one bar
+    await sequencer.play(degree, 1);
+}`);
+
     console.log("Initializing Midier");
     const midier = await createMidier();
 
@@ -56,11 +79,13 @@ async function main() {
         midier.onMIDINoteOff((number) => {
             midiOutput.send([0x80, number, 127]);
         });
-    }
 
-    console.log("Playing a layer");
-    await sequencer.play(1, 1);
-    console.log("Done");
+        // register the click handler for the 'run' button
+        // now that we have everything set up
+        document.querySelector("#run").onclick = function() {
+            eval("(async () => {" + jar.toString() + "})()");
+        }
+    }
 }
 
 main().then({}).catch(err => { console.error(err); })
