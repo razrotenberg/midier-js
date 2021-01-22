@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "description": "JavaScript bindings for Midier - a C++ MIDI sequencing and looping engine",
   "scripts": {
-    "build:dbg": "bazel build -c dbg //src:midier.js --config=wasm",
-    "build:opt": "bazel build -c opt //src:midier.js --config=wasm",
-    "dist": "mkdir -p $(pwd)/dist && cp -f $(pwd)/bazel-bin/src/midier.js $(pwd)/dist/midier.js",
+    "build:dbg": "bazel build -c dbg //src/js:midier.js --config=wasm",
+    "build:opt": "bazel build -c opt //src/js:midier.js --config=wasm",
+    "clean": "bazel clean && rm -rf $(pwd)/dist",
+    "dist": "mkdir -p $(pwd)/dist && cp -f $(pwd)/bazel-bin/src/js/midier.js $(pwd)/dist/midier.js",
     "docker:build": "docker build -f $(pwd)/Dockerfile -t levosos/midier-js $(pwd)",
     "docker:run": "docker run -it --rm -v $(pwd):/midier-js -v $(pwd)/../midier-core:/midier-core -w /midier-js levosos/midier-js",
     "docker": "npm run docker:run"

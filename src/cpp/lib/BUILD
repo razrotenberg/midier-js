@@ -4,6 +4,6 @@ cc_library(
     name = "lib",
     srcs = glob(["**/*.cpp"]),
     hdrs = glob(["**/*.h"]),
-    strip_include_prefix = "/src/",
+    strip_include_prefix = "/src/cpp/lib/",
     include_prefix = "midier",
 )
