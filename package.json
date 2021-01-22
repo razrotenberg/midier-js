@@ -8,7 +8,7 @@
     "clean": "bazel clean && rm -rf $(pwd)/dist",
     "dist": "mkdir -p $(pwd)/dist && cp -f $(pwd)/bazel-bin/src/js/midier.js $(pwd)/dist/midier.js",
     "docker:build": "docker build -f $(pwd)/Dockerfile -t levosos/midier-js $(pwd)",
-    "docker:run": "docker run -it --rm -v $(pwd):/midier-js -v $(pwd)/../midier-core:/midier-core -w /midier-js levosos/midier-js",
+    "docker:run": "docker run -it --rm -v $(pwd):/midier-js -w /midier-js levosos/midier-js",
     "docker": "npm run docker:run"
   },
   "repository": {
