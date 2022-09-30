@@ -7,6 +7,8 @@ namespace midier
 namespace style
 {
 
+// think about this
+
 Degree degree(unsigned n, unsigned r, unsigned index);
 unsigned count(unsigned n);
 

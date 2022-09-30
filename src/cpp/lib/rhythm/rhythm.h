@@ -3,6 +3,8 @@
 namespace midier
 {
 
+// refactor this
+
 enum class Rate : char
 {
     // values are the number of units that exist in a whole bar

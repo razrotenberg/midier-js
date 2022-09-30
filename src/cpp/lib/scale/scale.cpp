@@ -61,4 +61,38 @@ Quality quality(Mode mode, Degree degree)
 }
 
 } // scale
+
+Scale::Scale(const std::string & name, const std::vector<Degree> & degrees) :
+    _name(name),
+    _degrees(degrees)
+{}
+
+const std::string & Scale::name() const
+{
+    return _name;
+}
+
+unsigned Scale::degrees() const
+{
+    return _degrees.size();
+}
+
+Interval Scale::interval(midier::Degree degree) const
+{
+    Interval octaver = Interval::P1;
+
+    while (degree > 7)
+    {
+        degree -= 7;
+        octaver = octaver + Interval::P8;
+    }
+
+    return octaver + _degrees.at(degree - 1).interval;
+}
+
+const Scale::Degree & Scale::degree(midier::Degree degree) const
+{
+    return _degrees.at(degree - 1);
+}
+
 } // midier

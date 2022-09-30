@@ -43,7 +43,7 @@ struct Layer
     unsigned char id;
 #endif
 
-    Degree chord;
+    Degree degree;
     Time start;
     config::Viewed config;
     midi::Velocity velocity = midi::Velocity::High;

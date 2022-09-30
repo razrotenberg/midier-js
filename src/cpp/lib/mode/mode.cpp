@@ -10,6 +10,7 @@ namespace mode
 namespace
 {
 
+// remove this
 const Name __ionian = "Ionian";
 const Name __dorian = "Dorian";
 const Name __phrygian = "Phrygian";

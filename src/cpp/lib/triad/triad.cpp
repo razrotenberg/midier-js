@@ -48,4 +48,18 @@ Interval interval(Quality quality, Degree degree)
 }
 
 } // triad
+
+Interval Chord::interval(Degree degree) const
+{
+    Interval octaver = Interval::P1;
+
+    if (degree > 7)
+    {
+        degree -= 7;
+        octaver = Interval::P8;
+    }
+
+    return octaver + _intervals.at(degree >> 1); // transforming 'degree' from {1,3,5,7} to {0,1,2,3}, respectively
+}
+
 } // midier

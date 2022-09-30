@@ -3,6 +3,8 @@
 namespace midier
 {
 
+// consider removing this?
+
 enum class Mode : char
 {
     Ionian,

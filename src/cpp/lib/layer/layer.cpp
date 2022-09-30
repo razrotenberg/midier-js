@@ -17,7 +17,7 @@ Layer::Layer(
 #ifdef DEBUG
     id(id),
 #endif
-    chord(chord),
+    degree(chord),
     start(/* bar = */ -1, /* subdivision = */ delay), // we use `start` to hold `delay` as it will not be used until the layer will actually start
     config(config), // all layers share common configuration by default
     _state(State::Wait)
@@ -228,10 +228,13 @@ void Layer::click()
         index = config->steps() - (index - config->steps() + 1) - 1; // the respective mirrored index
     }
 
-    const auto note = config->note() + config->accidental()
-        + scale::interval(config->mode(), chord)
+    const auto scale = Scale("raz", {}); // config->scale();
+    const auto interval = scale.interval(degree); // interval for starting the chord
+    const auto chord = scale.chord(degree);
+    // ...
+    const auto note = config->note() + config->accidental() + interval
         + triad::interval(
-            scale::quality(config->mode(), chord),
+            scale::quality(config->mode(), degree),
             style::degree(config->steps(), config->perm(), index));
 
     if (_played.subdivisions != -1)
